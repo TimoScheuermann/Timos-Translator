@@ -1,11 +1,41 @@
-import Vue from "vue";
-import App from "./App.vue";
-import "./registerServiceWorker";
-import router from "./router";
+import * as TCComponents from 'tccomponents_vue';
+import 'tccomponents_vue/lib/tccomponents.css';
+import Vue from 'vue';
+import { Route } from 'vue-router';
+import App from './App.vue';
+import './registerServiceWorker';
+import router from './router';
 
 Vue.config.productionTip = false;
+
+for (const component in TCComponents) {
+  console.log(component);
+  Vue.component(
+    component
+      .replace('TC', 'Tc')
+      .replace('TF', 'Tf')
+      .replace('TL', 'Tl'),
+    TCComponents[component]
+  );
+}
+
+router.beforeEach((to: Route, from: Route, next) => {
+  const title = to.meta.title || 'TC Components';
+  document.title = title;
+
+  const gt = document.querySelector('meta[name="title"]');
+  if (gt) gt.setAttribute('content', title);
+
+  const twitter = document.querySelector('meta[property="twitter:title"]');
+  if (twitter) twitter.setAttribute('content', title);
+
+  const og = document.querySelector('meta[property="og:title"]');
+  if (og) og.setAttribute('content', title);
+
+  next();
+});
 
 new Vue({
   router,
   render: h => h(App)
-}).$mount("#app");
+}).$mount('#app');

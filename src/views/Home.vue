@@ -1,18 +1,68 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <tl-grid>
+      <tc-card
+        :dark="dark"
+        title="Welcome"
+        subtitle="Find out the meaning of my abbreviations"
+      />
+      <tc-card :dark="dark" title="Abbreviations">
+        <tc-input
+          placeholder="Find abbreviation"
+          v-model="query"
+          :dark="dark"
+          icon="lens"
+        />
+        <tc-table :dark="dark">
+          <tr v-for="w in words" :key="w.short" @click="show(w)">
+            <td>{{ w.short }}</td>
+            <td><i class="ti-arrow-right" /></td>
+            <td>{{ w.long }}</td>
+            <td><i class="ti-questionmark" /></td>
+          </tr>
+        </tc-table>
+      </tc-card>
+    </tl-grid>
+    <tc-modal
+      v-model="modalOpened"
+      :title="modalWord.short"
+      :subtitle="modalWord.long"
+      :dark="dark"
+    >
+      {{ modalWord.description }}
+    </tc-modal>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator';
+import words, { Word } from '@/words';
+@Component
+export default class Home extends Vue {
+  @Prop() dark!: boolean;
+  public query = '';
+  public modalOpened = false;
+  public modalWord: Word = words[0];
 
-export default {
-  name: "Home",
-  components: {
-    HelloWorld
+  public show(w: Word) {
+    this.modalWord = w;
+    this.modalOpened = true;
   }
-};
+
+  get words(): Word[] {
+    return words
+      .filter(w =>
+        Object.values(w)
+          .join('')
+          .toLowerCase()
+          .includes(this.query.toLowerCase())
+      )
+      .sort((a: Word, b: Word) => a.short.localeCompare(b.short));
+  }
+}
 </script>
+<style lang="scss" scoped>
+.tc-table {
+  margin-top: 10px;
+}
+</style>
