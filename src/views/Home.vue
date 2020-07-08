@@ -2,11 +2,12 @@
   <div class="home">
     <tl-grid>
       <tc-card
+        :rounded="true"
         :dark="dark"
         title="Welcome"
         subtitle="Find out the meaning of my abbreviations"
       />
-      <tc-card :dark="dark" title="Abbreviations">
+      <tc-card :rounded="true" :dark="dark" title="Abbreviations">
         <tc-input
           placeholder="Find abbreviation"
           v-model="query"
@@ -62,7 +63,8 @@ export default class Home extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.tc-table {
+.tc-table,
+.tl-grid {
   margin-top: 10px;
 }
 </style>

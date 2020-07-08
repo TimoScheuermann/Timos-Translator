@@ -1,6 +1,7 @@
 <template>
   <div class="help">
     <tc-card
+      :rounded="true"
       :dark="dark"
       title="You dont know what I mean?"
       subtitle="Send me a message via telegram"

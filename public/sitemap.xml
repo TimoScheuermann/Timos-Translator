@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 		<url>
-			<loc>https://icons.timos.design/</loc>
+			<loc>https://translator.timos.design/</loc>
 			<changefreq>daily</changefreq>
 			<priority>1</priority>
 		</url>
 
 		<url>
-			<loc>https://icons.timos.design/icons</loc>
+			<loc>https://translator.timos.design/help</loc>
 			<changefreq>daily</changefreq>
 			<priority>1</priority>
 		</url>
 
 		<url>
-			<loc>https://icons.timos.design/versions</loc>
-			<changefreq>daily</changefreq>
-			<priority>1</priority>
-		</url>
-
-		<url>
-			<loc>https://icons.timos.design/issues</loc>
-			<changefreq>daily</changefreq>
-			<priority>1</priority>
-		</url>
-
-		<url>
-			<loc>https://icons.timos.design/getting%20started</loc>
+			<loc>https://translator.timos.design/translate</loc>
 			<changefreq>daily</changefreq>
 			<priority>1</priority>
 		</url>

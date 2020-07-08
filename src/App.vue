@@ -7,7 +7,7 @@
       <tc-tabbar-item routeName="help" title="Help" icon="question-circle" />
     </tc-tabbar>
     <div content>
-      <router-view :dark="isDark" />
+      <router-view :dark="!isDark" />
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default class App extends Vue {
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', e => {
         this.isDark = e.matches;
+        this.$forceUpdate();
       });
   }
 }
@@ -41,7 +42,7 @@ html {
 }
 
 body {
-  background: $background;
+  background: $paragraph;
   color: $color;
   margin: 0;
   @media (prefers-color-scheme: dark) {
