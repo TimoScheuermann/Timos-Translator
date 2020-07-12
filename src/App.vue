@@ -1,21 +1,46 @@
 <template>
   <div id="timos-translator">
-    <tc-header :title="$route.meta.title" :dark="isDark" />
-    <tc-tabbar :dark="isDark">
-      <tc-tabbar-item routeName="home" />
-      <tc-tabbar-item routeName="translate" title="Translate" icon="exchange" />
-      <tc-tabbar-item routeName="help" title="Help" icon="question-circle" />
-    </tc-tabbar>
-    <div content>
-      <router-view :dark="isDark" />
-    </div>
+    <tl-modal :value="modalOpened">
+      <tc-modal
+        slot="modal"
+        v-model="modalOpened"
+        :title="modalWord.short"
+        :subtitle="modalWord.long"
+        :dark="isDark"
+      >
+        {{ modalWord.description }}
+      </tc-modal>
+
+      <tc-header :title="$route.meta.title" :dark="isDark" />
+      <tc-tabbar :dark="isDark">
+        <tc-tabbar-item routeName="home" />
+        <tc-tabbar-item
+          routeName="translate"
+          title="Translate"
+          icon="exchange"
+        />
+        <tc-tabbar-item routeName="help" title="Help" icon="question-circle" />
+      </tc-tabbar>
+      <div class="views">
+        <div content>
+          <router-view :dark="isDark" />
+        </div>
+      </div>
+    </tl-modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+
+import { EventBus } from '@/eventBus';
+import { Word } from './words';
+
 @Component
 export default class App extends Vue {
+  public modalOpened = false;
+  public modalWord: Word = { short: '', long: '', description: '' };
+
   public isDark =
     window.matchMedia &&
     window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -27,6 +52,11 @@ export default class App extends Vue {
         this.isDark = e.matches;
         this.$forceUpdate();
       });
+
+    EventBus.$on('modal', (w: Word) => {
+      this.modalWord = w;
+      this.modalOpened = true;
+    });
   }
 }
 </script>
@@ -42,13 +72,19 @@ html {
 }
 
 body {
-  background: $paragraph;
-  color: $color;
   margin: 0;
+  transition: 0s;
+}
+.views,
+body {
+  background: $background;
+  color: $color;
   @media (prefers-color-scheme: dark) {
-    background: #000;
-    color: #fff;
+    background: $background_dark;
+    color: $color_dark;
   }
+}
+.views {
   min-height: 100vh;
 }
 a {

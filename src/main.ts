@@ -1,5 +1,5 @@
 import * as TCComponents from 'tccomponents_vue';
-import 'tccomponents_vue/lib/tccomponents.css';
+import 'tccomponents_vue/lib/tccomponents_vue.css';
 import Vue from 'vue';
 import { Route } from 'vue-router';
 import App from './App.vue';
@@ -9,17 +9,10 @@ import router from './router';
 Vue.config.productionTip = false;
 
 for (const component in TCComponents) {
-  console.log(component);
-  Vue.component(
-    component
-      .replace('TC', 'Tc')
-      .replace('TF', 'Tf')
-      .replace('TL', 'Tl'),
-    TCComponents[component]
-  );
+  Vue.component(component, TCComponents[component]);
 }
 
-router.beforeEach((to: Route, from: Route, next) => {
+router.beforeEach((to: Route, from: Route, next: Function) => {
   const title = to.meta.title || 'TC Components';
   document.title = title;
 

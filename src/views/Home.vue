@@ -24,30 +24,22 @@
         </tc-table>
       </tc-card>
     </tl-grid>
-    <tc-modal
-      v-model="modalOpened"
-      :title="modalWord.short"
-      :subtitle="modalWord.long"
-      :dark="dark"
-    >
-      {{ modalWord.description }}
-    </tc-modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+
+import { EventBus } from '@/eventBus';
 import words, { Word } from '@/words';
+
 @Component
 export default class Home extends Vue {
   @Prop() dark!: boolean;
   public query = '';
-  public modalOpened = false;
-  public modalWord: Word = words[0];
 
   public show(w: Word) {
-    this.modalWord = w;
-    this.modalOpened = true;
+    EventBus.$emit('modal', w);
   }
 
   get words(): Word[] {

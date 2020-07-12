@@ -26,7 +26,12 @@ const words: Word[] = [
   { short: 'Ureich', long: 'bestes Bier der Welt', description: '' },
   { short: 'Eichbaum', long: 'beste Brauerei der Welt', description: '' },
   { short: 'See', long: 'Vogelsang See', description: '' },
-{ short: 'Wer baut der Haut', long: 'Wer baut der darf als erstes ziehen', description: '"Wer baut der haut!" ist eine in Kifferkreisen häufig verwendete Redewendung oder geltende Regelung. Sie besagt, dass die Person, die eine Mische herstellt oder einen Joint (auch Tüte, Spliff oder Jolly) baut, als erster rauchen darf. Vom Billard her: wer die Kugeln aufgebaut hat, macht auch den ersten Stoß.'}
+  {
+    short: 'Wer baut der Haut',
+    long: 'Wer baut der darf als erstes ziehen',
+    description:
+      '"Wer baut der haut!" ist eine in Kifferkreisen häufig verwendete Redewendung oder geltende Regelung. Sie besagt, dass die Person, die eine Mische herstellt oder einen Joint (auch Tüte, Spliff oder Jolly) baut, als erster rauchen darf. Vom Billard her: wer die Kugeln aufgebaut hat, macht auch den ersten Stoß.'
+  }
 ];
 
 export default words;

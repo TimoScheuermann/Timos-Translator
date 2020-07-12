@@ -1,12 +1,14 @@
 <template>
   <div class="translate">
     <h2>Replace abbreviations in a given text</h2>
+
     <tc-textarea
+      title="Original Message"
       :cols="400"
       :dark="dark"
       v-model="input"
-      title="Original Message"
     />
+
     <tc-textarea
       :dark="dark"
       :value="translated"
