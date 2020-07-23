@@ -10,8 +10,10 @@
       >
         {{ modalWord.description }}
       </tc-modal>
+      <tc-navbar :dark="isDark">
+        <b slot="logo">Timo's Translator</b>
+      </tc-navbar>
 
-      <tc-header :title="$route.meta.title" :dark="isDark" />
       <tc-tabbar :dark="isDark">
         <tc-tabbar-item routeName="home" />
         <tc-tabbar-item

@@ -2,12 +2,7 @@
   <div class="translate">
     <h2>Replace abbreviations in a given text</h2>
 
-    <tc-textarea
-      title="Original Message"
-      :cols="400"
-      :dark="dark"
-      v-model="input"
-    />
+    <tc-textarea title="Original Message" :dark="dark" v-model="input" />
 
     <tc-textarea
       :dark="dark"
@@ -21,14 +16,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import TCTextarea from '@/components/TC-Textarea.vue';
 import words, { Word } from '@/words';
 
-@Component({
-  components: {
-    'tc-textarea': TCTextarea
-  }
-})
+@Component
 export default class Translate extends Vue {
   @Prop() dark!: boolean;
   public input = '';
@@ -37,20 +27,22 @@ export default class Translate extends Vue {
 
   get translated(): string {
     let input = this.input;
+    console.log(encodeURI(this.input));
     this.words.forEach((w: Word) => {
       input = input
         .split(' ')
         .map(x => (x.toLowerCase() === w.short.toLowerCase() ? w.long : x))
         .join(' ');
+      console.log('section', input);
+      console.log('compared to', w.short);
       // input = input.split(` ${w.short} `).join(` ${w.long} `);
     });
     return input;
   }
 }
 </script>
-
 <style lang="scss" scoped>
-.tc-textarea {
-  margin-top: 50px;
+h2 {
+  margin-bottom: 50px;
 }
 </style>
