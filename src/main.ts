@@ -1,3 +1,4 @@
+import { store } from '@/store';
 import * as TCComponents from 'tccomponents_vue';
 import 'tccomponents_vue/lib/tccomponents_vue.css';
 import Vue from 'vue';
@@ -8,6 +9,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
+Vue.use(TCComponents, { primaryColor: 'red' });
 for (const component in TCComponents) {
   Vue.component(component, TCComponents[component]);
 }
@@ -30,5 +32,6 @@ router.beforeEach((to: Route, from: Route, next: Function) => {
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');

@@ -1,46 +1,39 @@
 <template>
   <div class="home">
-    <tl-grid>
-      <tc-card
-        :rounded="true"
+    <h1>Welcome</h1>
+    <p>
+      Find out the meaning of my abbreviations
+    </p>
+    <tc-card :rounded="true" :dark="dark" title="Abbreviations">
+      <tc-input
+        placeholder="Find abbreviation"
+        v-model="query"
         :dark="dark"
-        title="Welcome"
-        subtitle="Find out the meaning of my abbreviations"
+        icon="lens"
       />
-      <tc-card :rounded="true" :dark="dark" title="Abbreviations">
-        <tc-input
-          placeholder="Find abbreviation"
-          v-model="query"
-          :dark="dark"
-          icon="lens"
-        />
-        <tc-table :dark="dark">
-          <tr v-for="w in words" :key="w.short" @click="show(w)">
-            <td>{{ w.short }}</td>
-            <td><i class="ti-arrow-right" /></td>
-            <td>{{ w.long }}</td>
-            <td><i class="ti-questionmark" /></td>
-          </tr>
-        </tc-table>
-      </tc-card>
-    </tl-grid>
+      <tc-table :dark="dark">
+        <tc-tr v-for="w in words" :key="w.short">
+          <tc-td>{{ w.short }}</tc-td>
+          <tc-td><i class="ti-arrow-right"/></tc-td>
+          <tc-td>{{ w.long }}</tc-td>
+          <template slot="expander" v-if="w.description">
+            <p>{{ w.description }}</p>
+          </template>
+        </tc-tr>
+      </tc-table>
+    </tc-card>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
-import { EventBus } from '@/eventBus';
 import words, { Word } from '@/words';
 
 @Component
 export default class Home extends Vue {
   @Prop() dark!: boolean;
   public query = '';
-
-  public show(w: Word) {
-    EventBus.$emit('modal', w);
-  }
 
   get words(): Word[] {
     return words

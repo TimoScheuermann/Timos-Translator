@@ -1,41 +1,25 @@
 <template>
   <div id="timos-translator">
-    <tl-modal :value="modalOpened">
-      <tc-modal
-        slot="modal"
-        v-model="modalOpened"
-        :title="modalWord.short"
-        :subtitle="modalWord.long"
-        :dark="isDark"
-      >
-        {{ modalWord.description }}
-      </tc-modal>
-      <tc-navbar :dark="isDark">
-        <b slot="logo">Timo's Translator</b>
-      </tc-navbar>
+    <tc-navbar :dark="isDark">
+      <b slot="logo">Timo's Translator</b>
+    </tc-navbar>
 
-      <tc-tabbar :dark="isDark">
-        <tc-tabbar-item routeName="home" />
-        <tc-tabbar-item
-          routeName="translate"
-          title="Translate"
-          icon="exchange"
-        />
-        <tc-tabbar-item routeName="help" title="Help" icon="question-circle" />
-      </tc-tabbar>
-      <div class="views">
-        <div content>
-          <router-view :dark="isDark" />
-        </div>
+    <tc-tabbar :dark="isDark">
+      <tc-tabbar-item routeName="home" />
+      <tc-tabbar-item routeName="translate" title="Translate" icon="exchange" />
+      <tc-tabbar-item routeName="help" title="Help" icon="question-circle" />
+    </tc-tabbar>
+    <div class="views">
+      <div content>
+        <router-view :dark="isDark" />
       </div>
-    </tl-modal>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 
-import { EventBus } from '@/eventBus';
 import { Word } from './words';
 
 @Component
@@ -51,14 +35,9 @@ export default class App extends Vue {
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', e => {
-        this.isDark = e.matches;
+        this.$store.commit('setDarkMode', e.matches);
         this.$forceUpdate();
       });
-
-    EventBus.$on('modal', (w: Word) => {
-      this.modalWord = w;
-      this.modalOpened = true;
-    });
   }
 }
 </script>
